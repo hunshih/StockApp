@@ -1,0 +1,33 @@
+<!-- index.html -->
+    <!DOCTYPE html>
+    <html ng-app="stockApp">
+    <head>
+      <!-- SCROLLS -->
+      <!-- load bootstrap and fontawesome via CDN -->
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+      <!-- SPELLS -->
+      <!-- load angular and angular route via CDN -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+      <script src="../bower_components/jquery/dist/jquery.js"></script>
+      <script src="../bower_components/angular/angular.min.js"></script>
+      <script src="../bower_components/Chart.js/Chart.min.js"></script>
+      <script src="../bower_components/angular-chart.js/dist/angular-chart.js"></script>
+      <script src="../script.js"></script>
+      <script src="../chart_script/Chart.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.js"></script>
+    </head>
+    <body>
+      <div ng-controller="ratioCtrl">
+        <input type="text" placeholder="stock pick" ng-model="inputText" ng-keypress="search($event)"></input>
+        <button ng-click="showStock()">Search</button>
+        <p>{{ inputText }}</p>
+        <li ng-show="quoteVisibility" class="view-frame">
+          {{ stock.Name }}({{ stock.symbol }}): ${{ stock.LastTradePriceOnly }}
+        </li>
+        <div>
+          <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
+        </div>
+      </div>
+    </body>
+    </html>

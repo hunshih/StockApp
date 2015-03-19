@@ -3,6 +3,10 @@ var stockApp = angular.module('stockApp', ['ngRoute', 'ngAnimate', 'chart.js']);
 
 //main controller
 stockApp.controller('mainCtrl', function($scope, $http){
+
+});
+
+stockApp.controller('ratioCtrl', function($scope, $http){
   $scope.search = function(keyEvent) {
   if (keyEvent.which === 13)
     $scope.showStock();
@@ -38,6 +42,9 @@ stockApp.controller('mainCtrl', function($scope, $http){
 stockApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
+      when('/', {
+        templateUrl: 'pages/ratio.html'
+      }).
       when('/ice', {
         templateUrl: 'pages/ice.html'
       }).

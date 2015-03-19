@@ -20,22 +20,13 @@
     </head>
     <body>
       <div ng-controller="mainCtrl">
-        <input type="text" placeholder="stock pick" ng-model="inputText" ng-keypress="search($event)"></input>
-        <button ng-click="showStock()">Search</button>
-        <p>{{ inputText }}</p>
-        <!--<p>{{queryStock}}</p>
-        <p>{{ result }}-->
-        <li ng-show="quoteVisibility" class="view-frame">
-          {{ stock.Name }}({{ stock.symbol }}): ${{ stock.LastTradePriceOnly }}
-        </li>
-        <div>
-          <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
-        </div>
+        <div id="menuPanel">
         <a href="/">Home</a>
         <a href="/#ice">Ice</a>
         <a href="/#mountain">Mountain</a>
+        </div>
         <div class="view-container">
-          <div ng-view class="view-frame"></div>
+          <div ng-view class="view-slide-in"></div>
         </div>
       </div>
     </body>

@@ -1,22 +1,7 @@
-.section {
-    -webkit-column-count: 3; /* Chrome, Safari, Opera */
-    -moz-column-count: 3; /* Firefox */
-    column-count: 3;
-}
 
 .view-container {
   position: relative;
 }
-
-.fading{
-  position:absolute;
-  left:0;
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
-}
-
 
 .view-frame.ng-enter, .view-frame.ng-leave {
   background: white;
@@ -27,18 +12,18 @@
 }
 
 .view-frame.ng-enter {
-  -webkit-animation: 2.0s fade-in;
-  -moz-animation: 2.0s fade-in;
-  -o-animation: 2.0s fade-in;
-  animation: 2.0s fade-in;
+  -webkit-animation: 5.0s fade-in;
+  -moz-animation: 5.0s fade-in;
+  -o-animation: 5.0s fade-in;
+  animation: 5.0s fade-in;
   z-index: 99;
 }
 
 .view-frame.ng-leave {
-  -webkit-animation: 1.0s fade-out;
-  -moz-animation: 1.0s fade-out;
-  -o-animation: 1.0s fade-out;
-  animation: 1.0s fade-out;
+  -webkit-animation: 0.5s fade-out;
+  -moz-animation: 0.5s fade-out;
+  -o-animation: 0.5s fade-out;
+  animation: 0.5s fade-out;
   z-index:99;
 }
 
@@ -66,4 +51,59 @@
 @-webkit-keyframes fade-out {
   from { opacity: 1; }
   to { opacity: 0; }
+}
+
+
+.view-slide-in.ng-enter {
+  transition: all 2s ease;
+  -webkit-transition:all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+   
+  opacity:0.5;
+  position:relative;
+  opacity:0;
+  left:50px;
+}
+
+.view-slide-in.ng-leave{
+  transition: all 0.3s ease;
+  -webkit-transition:all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+
+  top:0;
+  position:relative;
+  opacity:0.5;
+}
+
+.view-slide-in.ng-enter {
+  opacity: 0;
+}
+
+.view-slide-in.ng-leave{
+  opacity:1;
+}
+
+.view-slide-in.ng-enter.ng-enter-active {
+  top:0;
+  left:0;
+  opacity: 1;
+}
+.view-slide-in.ng-leave.ng-leave-active{
+  top:0;
+  left:0;
+  opacity:0;
+}
+
+
+
+.menu {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    padding: 1em .5em;
+    list-style: none;
+    display: inline-block;
+    background-color: #fc9;
 }
