@@ -1,8 +1,16 @@
-<html ng-app> 
+<html ng-app = "stockApp"> 
   <head>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     </head>
   <body>
+  	<div>
+  		<div  ng-controller="cashCtrl">
+  			<li>Net Income: {{ netIncome }}</li>
+  			<li>Total Cash Flow From Operating Activities: {{ operatingActivities }}</li>
+  			<li>Total Cash Flows From Investing Activitiese: {{ investingActivities }}</li>
+  			<li>Total Cash Flows From Financing Activities: {{ financeActivities }}</li>
+  		</div>
     <img ng-src="../image/ice.jpg">
+	</div>
   </body>
 <html>

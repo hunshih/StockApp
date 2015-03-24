@@ -21,7 +21,8 @@
       <div ng-controller="ratioCtrl">
         <input type="text" placeholder="stock pick" ng-model="inputText" ng-keypress="search($event)"></input>
         <button ng-click="showStock()">Search</button>
-        <p>{{ inputText }}</p>
+        <p>{{ stockInput }}</p>
+        <p>{{ test }}</p>
         <li ng-show="quoteVisibility" class="view-frame">
           {{ stock.Name }}({{ stock.symbol }}): ${{ stock.LastTradePriceOnly }}
         </li>
