@@ -2,6 +2,7 @@
     <!DOCTYPE html>
     <html ng-app="stockApp">
     <head>
+      <title>Sniffing Pugs</title>
       <!-- SCROLLS -->
       <!-- load bootstrap and fontawesome via CDN -->
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
@@ -19,13 +20,16 @@
       <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.js"></script>
     </head>
     <body>
-      <div ng-controller="ratioCtrl">
-        <div id="menuPanel">
-        <a href="/">Ratios</a>
-        <a href="/#cash">Cash Flows</a>
-        <a href="/#stewardship">Stewardship</a>
-
+      <div>
+        <div class="nav">
+          <ul>
+            <a href="/#">Ratios</a>
+            <a href="/#cashflow">Cash Flows</a>
+            <a href="/#ownership">Stewardship</a>
+            <a href="/#reportcard">Report Card</a>
+          </ul>
         </div>
+        <div class="headerbreak"></div>
         <div class="view-container">
           <div ng-view class="view-slide-in"></div>
         </div>

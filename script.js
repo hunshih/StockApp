@@ -7,7 +7,7 @@ var peRatio = 0;
 var dividendYield = 0;
 var companySymbol = 0;
 //main controller
-stockApp.controller('mainCtrl', function($scope, $http){
+stockApp.controller('mainCtrl', function ($scope, $http) {
 });
 
 stockApp.controller('ratioCtrl', function($scope, $http){
@@ -67,10 +67,14 @@ stockApp.config(['$routeProvider',
       when('/', {
         templateUrl: 'pages/ratio.html'
       }).
-      when('/cash', {
-        templateUrl: 'pages/ice.html'
+      when('/cashflow', {
+        templateUrl: 'pages/cashflow.html'
       }).
-      when('/stewardship', {
-        templateUrl: 'pages/mountain.html'
+      when('/ownership', {
+        templateUrl: 'pages/ownership.html'
+      }).
+      when('/reportcard', {
+        templateUrl: 'pages/reportcard.html'
       })
   }]);
+
