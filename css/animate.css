@@ -1,6 +1,7 @@
 .view-container {
   position: relative;
   background: white;
+    padding: 50px;
 }
 
 .view-frame.ng-enter, .view-frame.ng-leave {
@@ -118,21 +119,41 @@
   background: url("../image/ice.jpg") no-repeat fixed center;
 }
 
+@font-face {
+    font-family: milton;
+    src: url("../fonts/milton/Milton Keynes Regular.ttf");
+}
+
+@font-face {
+    font-family: quarca;
+    src: url("../fonts/quarca/QuarcaNormRegular.otf");
+}
+
+@font-face {
+    font-family: bowhouse;
+    src: url("../fonts/bowhouse/Bowhouse-Regular.otf");
+}
+
 .nav {
   height: 40px;
-  background: LightCyan;
+  background: #585858 ;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    font-family: milton;
+    font-size: 150%
 }
 
 .nav ul a{
   display: block;
-  padding: 10px 20px;
+  padding: 5px 20px;
   float: left;
-  color: green;
+  color: #D8D8D8;
 }
 
 .nav ul a:hover{
-  color: red;
-  background-color: white;
+  background-color: #282828 ;
+  text-decoration: none;
 }
 
 .headerbreak{

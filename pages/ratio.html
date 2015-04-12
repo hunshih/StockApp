@@ -18,17 +18,14 @@
     </head>
     <body>
       <div ng-controller="ratioCtrl" style="width: 100%;">
-        <div style="float:left; width: 50%">
+        <div>
           <input type="text" placeholder="stock pick" ng-model="inputText" ng-keypress="search($event)"></input>
           <button ng-click="showStock()">Search</button>
           <p>{{ stockInput }}</p>
           <p>{{ test }}</p>
           <li ng-show="quoteVisibility" class="view-frame">
-            {{ stock.Name }}({{ stock.symbol }}): ${{ stock.LastTradePriceOnly }}
+            {{ stock.Name }}({{ stock.symbol }}): ${{ stock.LastTradePriceOnly }} - {{ result }}
           </li>
-          <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
-        </div>
-        <div style="float:right;" class="sec2">
           <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
         </div>
       </div>

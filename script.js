@@ -4,6 +4,7 @@ var lastTradePrice = 0;
 var yearHigh = 0;
 var yearLow = 0;
 var peRatio = 0;
+var averagePE = 0;
 var dividendYield = 0;
 var companySymbol = 0;
 //main controller
@@ -23,18 +24,17 @@ stockApp.controller('ratioCtrl', function($scope, $http){
   };
   $scope.quoteVisibility = false;
     $scope.showStock = function(){
-        $http.get("https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol in (%22" + $scope.inputText + "%22)&format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&callback=")
+        $http.get("https://api.import.io/store/data/e4d56e36-707f-4dd0-a1f8-8e116b1d2630/_query?input/webpage/url=http%3A%2F%2Fbiz.yahoo.com%2Fp%2F314conameu.html%23" + $scope.inputText + "&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
         .success(function(response) {
           if(response.query.results.quote.Name != null){
           $scope.quoteVisibility = true;
           $scope.stock = response.query.results.quote;
-          $scope.result = response;
           companySymbol = $scope.inputText;
-          lastTradePrice = response.query.results.quote.LastTradePriceOnly;
-          yearHigh = response.query.results.quote.YearHigh;
-          yearLow = response.query.results.quote.YearLow;
-          peRatio = response.query.results.quote.PERatio;
-          dividendYield = response.query.results.quote.DividendYield;
+          lastTradePrice = 4;
+          yearHigh = 3;
+          yearLow = 2;
+          peRatio = 1;
+          dividendYield = 0;
           $scope.ChartData = [
             [lastTradePrice, yearHigh, yearLow, peRatio, dividendYield, 0, 0]
                               ];
