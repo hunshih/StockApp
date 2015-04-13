@@ -7,6 +7,7 @@ var peRatio = 0;
 var averagePE = 0;
 var dividendYield = 0;
 var companySymbol = 0;
+var industryLink;
 //main controller
 stockApp.controller('mainCtrl', function ($scope, $http) {
 });
@@ -20,15 +21,34 @@ stockApp.controller('ratioCtrl', function($scope, $http){
 
   $scope.search = function(keyEvent) {
   if (keyEvent.which === 13)
-    $scope.showStock();
+      {
+        //industryLink = getIndustryLinks();
+        $scope.getLinks();
+          alert("reach here");
+        $scope.showStock();
+      }
   };
   $scope.quoteVisibility = false;
+    $scope.getLinks = function(){
+        $http.get("https://api.import.io/store/data/02134541-f2f4-4526-82ca-df3fa62307f6/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fin%3Fs%3D" + $scope.inputText + "%2BIndustry&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
+            .success(function(response) {
+            //alert(response.results[0].industry);
+            $scope.industry = response.results[0].industry;
+
+          //$scope.industry = industryLink;
+          }).
+        error(function() {
+          
+        });
+    };
     $scope.showStock = function(){
-        $http.get("https://api.import.io/store/data/e4d56e36-707f-4dd0-a1f8-8e116b1d2630/_query?input/webpage/url=http%3A%2F%2Fbiz.yahoo.com%2Fp%2F314conameu.html%23" + $scope.inputText + "&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
+        $http.get("https://api.import.io/store/data/d53a442a-94ef-45b8-acd7-d2bcac37b007/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fks%3Fs%3D" + $scope.inputText + "%2BKey%2BStatistics&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
         .success(function(response) {
-          if(response.query.results.quote.Name != null){
+            alert("hi")
           $scope.quoteVisibility = true;
-          $scope.stock = response.query.results.quote;
+          //$scope.stock = response.query.results.quote;
+          $scope.symbol = $scope.inputText;
+          //$scope.stats = response;
           companySymbol = $scope.inputText;
           lastTradePrice = 4;
           yearHigh = 3;
@@ -38,18 +58,27 @@ stockApp.controller('ratioCtrl', function($scope, $http){
           $scope.ChartData = [
             [lastTradePrice, yearHigh, yearLow, peRatio, dividendYield, 0, 0]
                               ];
-            }
-          else{
-            $scope.quoteVisibility = false;
-            alert("Ticker not found!");
-          }
-          })
+          }).
         error(function() {
           
         });
     };
 });
+///////////////////////FUNCTION FOR DIFFERENT LINKS///////////////////
+function getIndustryLinks(){
+    var linkurl = "https://api.import.io/store/data/02134541-f2f4-4526-82ca-df3fa62307f6/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fin%3Fs%3D" + companySymbol + "%2BIndustry&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D";    
+    $.ajax({
+        url : 'example.com',
+        type: 'GET',
+        success : extractData
+    })
+}
+function extractData(input){
+                alert(result.results[0].industry);
+        industryLink = result.results[0].industry;
+}
 
+///////////////////////////////////////////////////
 stockApp.controller('cashCtrl', function($scope, $http){
   $http.get("https://api.import.io/store/data/4924b7de-9b92-4bde-aff7-6e19475e01f1/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fcf%3Fs%3D"+ companySymbol +"%26quarterly&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
           .success(function(response) {
