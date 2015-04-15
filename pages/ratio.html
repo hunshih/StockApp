@@ -20,13 +20,19 @@
       <div ng-controller="ratioCtrl" style="width: 100%;">
         <div>
           <input type="text" placeholder="stock pick" ng-model="inputText" ng-keypress="search($event)"></input>
-          <button ng-click="getLinks(); showStock()">Search</button>
+          <button ng-click="getLinks()">Search</button>
           <p>{{ stockInput }}</p>
           <p>{{ test }}</p>
           <p ng-show="quoteVisibility" class="view-frame">
-            Symbol: {{ symbol }}
-            key stats response: {{ stats }}
-            LINK : {{ industry }}
+              <li>SYMBOL: {{ symbol }}</li>
+              <li>LINK : {{ industry }}</li>
+              <li>STATS: {{ stats }}</li>
+              <li>PE: {{ peRatio }}</li>
+              <li>INDUSTRYPE: {{ averagePE }}</li>
+              <li>MARGIN: {{ margin }}</li>
+              <li>INDUSTRYMARGIN: {{ averageMargin }}</li>
+              <li>ROA: {{ roa }}</li>
+              <li>INDUSTRYROA: {{ averageRoa }}</li>
           </p>
           <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
         </div>
