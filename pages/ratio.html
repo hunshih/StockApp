@@ -24,15 +24,15 @@
           <p>{{ stockInput }}</p>
           <p>{{ test }}</p>
           <p ng-show="quoteVisibility" class="view-frame">
-              <li>SYMBOL: {{ symbol }}</li>
+              <li>TICKER: {{ symbol }}</li>
               <li>LINK : {{ industry }}</li>
               <li>STATS: {{ stats }}</li>
               <li>PE: {{ peRatio }}</li>
-              <li>INDUSTRYPE: {{ averagePE }}</li>
-              <li>MARGIN: {{ margin }}</li>
-              <li>INDUSTRYMARGIN: {{ averageMargin }}</li>
+              <li>INDUSTRY PE: {{ averagePE }}</li>
+              <li>OPERATION MARGIN: {{ margin }}</li>
+              <li>INDUSTRY NET MARGIN: {{ averageMargin }}</li>
               <li>ROA: {{ roa }}</li>
-              <li>INDUSTRYROA: {{ averageRoa }}</li>
+              <li>INDUSTRY ROE: {{ averageRoe }}</li>
           </p>
           <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
         </div>

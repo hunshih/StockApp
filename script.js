@@ -5,11 +5,13 @@ var yearHigh = 0;
 var yearLow = 0;
 var peRatio = 0;
 var operationMargin = 0;
+var roa;
 var averagePE = 0;
 var dividendYield = 0;
 var companySymbol = 0;
 var industryPE = 0;
 var industryNetMargin = 0;
+var industryRoe = 0;
 var industryLink;
 
 //main controller
@@ -51,8 +53,10 @@ stockApp.controller('ratioCtrl', function($scope, $http){
             $scope.stats = response;
             industryPE = response.results[0].pe;
             industryNetMargin = response.results[0].netprofitmargin;
+            industryRoe = response.results[0].roe;
             $scope.averagePE = industryPE;
             $scope.averageMargin = industryNetMargin;
+            $scope.averageRoe = industryRoe;
             $scope.showStock();
           }).
         error(function() {
@@ -71,9 +75,11 @@ stockApp.controller('ratioCtrl', function($scope, $http){
           yearHigh = 3;
           yearLow = 2;
           peRatio = response.results[0].pe;
-          $scope.peRatio = peRatio;
           operationMargin = response.results[0].operationmargin;
+          roa = response.results[0].roa;
+          $scope.peRatio = peRatio;
           $scope.margin = operationMargin;
+          $scope.roa = roa;
           var presentPE = (industryPE / peRatio).toPrecision(3);
           dividendYield = 0;
           $scope.ChartData = [
