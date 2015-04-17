@@ -8,11 +8,18 @@ var operationMargin = 0;
 var roa;
 var averagePE = 0;
 var dividendYield = 0;
+var priceBook = 0;
+var earningYield = 0;
+var marketCap = 0;
+var netIncome = 0;
+var dividendPaid = 0;
 var companySymbol = 0;
 var industryPE = 0;
 var industryNetMargin = 0;
 var industryRoe = 0;
 var industryLink;
+var industryPriceBook = 0;
+var industryEY = 0;
 
 //main controller
 stockApp.controller('mainCtrl', function ($scope, $http) {
@@ -22,7 +29,7 @@ stockApp.controller('ratioCtrl', function($scope, $http){
 
   $scope.corners =["Price", "Year High", "Year Low", "PE Ratio", "Dividend Yield", "Test3", "Test4"];
   $scope.ChartData = [
-  [lastTradePrice, yearHigh, yearLow, peRatio, dividendYield, 0, 0]
+  [1, yearHigh, yearLow, peRatio, dividendYield, 0, 0]
   ];
 
   $scope.search = function(keyEvent) {
@@ -52,11 +59,26 @@ stockApp.controller('ratioCtrl', function($scope, $http){
             //alert(response);
             $scope.stats = response;
             industryPE = response.results[0].pe;
+            industryEY = (1/industryPE).toPrecision(3);
             industryNetMargin = response.results[0].netprofitmargin;
             industryRoe = response.results[0].roe;
+            industryPriceBook = response.results[0].pbook;
             $scope.averagePE = industryPE;
             $scope.averageMargin = industryNetMargin;
             $scope.averageRoe = industryRoe;
+            $scope.averagePbook = industryPriceBook;
+            $scope.getROIC();
+          }).
+        error(function() {
+          
+        });
+    };
+    $scope.getROIC = function(){
+        $http.get("https://api.import.io/store/data/c7ce718a-6756-4c73-b885-0d688e996635/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fcf%3Fs%3D" + $scope.inputText +"%26annual&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
+            .success(function(response) {
+            //alert(response.results[0].industry);
+            netIncome = response.results[1].sep272014_value;
+            dividendPaid = response.results[16].sep272014_value;
             $scope.showStock();
           }).
         error(function() {
@@ -75,11 +97,15 @@ stockApp.controller('ratioCtrl', function($scope, $http){
           yearHigh = 3;
           yearLow = 2;
           peRatio = response.results[0].pe;
+          earningYield = (1/peRatio).toPrecision(3);
           operationMargin = response.results[0].operationmargin;
           roa = response.results[0].roa;
+          priceBook = response.results[0].pbook;
+          marketCap = response.results[0].marketcap;
           $scope.peRatio = peRatio;
           $scope.margin = operationMargin;
           $scope.roa = roa;
+          $scope.pbook = priceBook;
           var presentPE = (industryPE / peRatio).toPrecision(3);
           dividendYield = 0;
           $scope.ChartData = [
