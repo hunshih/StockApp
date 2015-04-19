@@ -20,7 +20,16 @@ var industryRoe = 0;
 var industryLink;
 var industryPriceBook = 0;
 var industryEY = 0;
-
+var marketCap = 0;
+var roic = 0;
+var longTermDebt = 0;
+var totalEquity = 0;
+var totalCapital = 0;
+var payoutRatio = 0;
+var currentAssets = 0;
+var currentInventories = 0;
+var currentLiabilities = 0;
+var quickRatio = 0;
 //main controller
 stockApp.controller('mainCtrl', function ($scope, $http) {
 });
@@ -67,6 +76,41 @@ stockApp.controller('ratioCtrl', function($scope, $http){
             $scope.averageMargin = industryNetMargin;
             $scope.averageRoe = industryRoe;
             $scope.averagePbook = industryPriceBook;
+            //$scope.getROIC();
+            $scope.getMarketCap();
+          }).
+        error(function() {
+          
+        });
+    };
+    $scope.getMarketCap = function(){
+        $http.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + $scope.inputText + "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")
+            .success(function(response) {
+            //alert(response.results[0].industry);
+            //$scope.marketCap = "haha";
+            marketCap = response.query.results.quote.MarketCapitalization;
+            marketCap = convertMarketCap(marketCap);
+            $scope.marketCap = marketCap;
+            $scope.getCapital();
+          }).
+        error(function() {
+          
+        });
+    };
+    $scope.getCapital = function(){
+        $http.get("https://api.import.io/store/data/8fb81fdf-edd5-47db-b30c-26a520ad9af7/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fbs%3Fs%3D" + $scope.inputText + "&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
+            .success(function(response) {
+            
+            longTermDebt = parseFloat(response.results[23].value_3);
+            totalEquity = parseFloat(response.results[38].value_3);
+            totalCapital = longTermDebt + totalEquity;
+            
+            currentAssets = parseFloat(response.results[8].value_3);
+            currentInventories = parseFloat(response.results[6].value_3);
+            currentLiabilities = parseFloat(response.results[22].value_3);
+            quickRatio = (currentAssets - currentInventories)/currentLiabilities;
+            $scope.quickRatio = quickRatio.toPrecision(4);
+            $scope.capital = totalCapital;
             $scope.getROIC();
           }).
         error(function() {
@@ -77,8 +121,10 @@ stockApp.controller('ratioCtrl', function($scope, $http){
         $http.get("https://api.import.io/store/data/c7ce718a-6756-4c73-b885-0d688e996635/_query?input/webpage/url=http%3A%2F%2Ffinance.yahoo.com%2Fq%2Fcf%3Fs%3D" + $scope.inputText +"%26annual&_user=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7&_apikey=bebd3907-23ed-45f5-86f5-69e5b8a4c9e7%3A8DLVNS8YsLcDmGnMp3Ne9XK4oWk30YKsoZRG8KWRUyXzPFCqYPlKBGHSE5rm1%2Bd121AIN8eZU6TQZIXwrkqenA%3D%3D")
             .success(function(response) {
             //alert(response.results[0].industry);
-            netIncome = response.results[1].sep272014_value;
-            dividendPaid = response.results[16].sep272014_value;
+            netIncome = parseFloat(response.results[1].sep272014_value);
+            dividendPaid = convertDividend(response.results[16].sep272014_value);
+            roic = ((netIncome - dividendPaid)*100/totalCapital).toPrecision(4);
+            $scope.roic = roic;
             $scope.showStock();
           }).
         error(function() {
@@ -101,12 +147,14 @@ stockApp.controller('ratioCtrl', function($scope, $http){
           operationMargin = response.results[0].operationmargin;
           roa = response.results[0].roa;
           priceBook = response.results[0].pbook;
-          marketCap = response.results[0].marketcap;
+          payoutRatio = response.results[0].payout;
           $scope.peRatio = peRatio;
           $scope.margin = operationMargin;
           $scope.roa = roa;
           $scope.pbook = priceBook;
-          var presentPE = (industryPE / peRatio).toPrecision(3);
+          $scope.payout = payoutRatio;
+          $scope.earningYield = earningYield;
+          var presentPE = peScaling(peRatio, industryPE).toPrecision(3);
           dividendYield = 0;
           $scope.ChartData = [
             [lastTradePrice, yearHigh, yearLow, presentPE, dividendYield, 0, 0]
@@ -146,3 +194,47 @@ stockApp.config(['$routeProvider',
       })
   }]);
 
+//======Helper=============
+var convertMarketCap = function(value){
+    if(value == null) return 0;
+    var decimalValue = parseFloat(value.substring(0, value.length - 1));
+    if(value.slice(-1) == 'M'){
+        return (decimalValue*1.0e+6);
+    }
+    else return (decimalValue*(1.0e+9));
+};
+var convertDividend = function(value){
+    if(value.length <= 1) return 0;
+    else return parseFloat(value.substring(1, value.length - 1));
+};
+
+var getPeBase = function(value){
+        if(value <= 15){
+            return 5
+        }
+        else{
+            return (75/value);
+        }
+};
+
+var getPeBonus = function(value, average){
+        if(value < (0.5*average)){
+           return 5;
+        }
+        else if(value <= average ){
+            var slope = (-2/(0.5*average));
+            return (slope * value + 7);
+        }
+        else{
+            return (3 * average)/value;   
+        }
+};
+
+var peScaling = function(value, average){
+    var result = 0;
+    var base = getPeBase(value);
+    var bonus = getPeBonus(value, average);
+    alert(bonus);
+    result = base + bonus;
+    return result;
+};

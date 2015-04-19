@@ -25,16 +25,24 @@
           <p>{{ test }}</p>
           <p ng-show="quoteVisibility" class="view-frame">
               <li>TICKER: {{ symbol }}</li>
+              <li>PE: {{ peRatio }}</li>
+              <li>EARNING YIELD: {{ earningYield }}</li>
+              <li>ROIC: {{ roic }}%</li>
+              <li>P/BOOK: {{ pbook }}</li>
+              <li>MARKET CAP: {{ marketCap }}</li>
+              <li>PAYOUT: {{ payout }}%</li>
+              <li>QUICK RATIO: {{ quickRatio }}</li>
+              <li>==============================</li>
               <li>LINK : {{ industry }}</li>
               <li>STATS: {{ stats }}</li>
-              <li>PE: {{ peRatio }}</li>
               <li>INDUSTRY PE: {{ averagePE }}</li>
               <li>OPERATION MARGIN: {{ margin }}</li>
               <li>INDUSTRY NET MARGIN: {{ averageMargin }}</li>
               <li>ROA: {{ roa }}</li>
               <li>INDUSTRY ROE: {{ averageRoe }}</li>
-              <li>P/BOOK: {{ pbook }}</li>
               <li>INDUSTRY P/BOOK: {{ averagePbook }}</li>
+              <li>CAPITAL: {{ capital }}</li>
+
           </p>
           <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
         </div>
