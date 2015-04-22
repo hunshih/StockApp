@@ -5,7 +5,7 @@
       <title>Key Ratios</title>
       <!-- SCROLLS -->
       <!-- load bootstrap and fontawesome via CDN -->
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../css/ratioStyle.css" />
       <!-- SPELLS -->
       <!-- load angular and angular route via CDN -->
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
@@ -16,9 +16,9 @@
       <script src="../script.js"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.js"></script>
     </head>
-    <body>
+    <body class="ratioBody">
       <div ng-controller="ratioCtrl" style="width: 100%;">
-        <div>
+        <div class="radarSection">
           <input type="text" placeholder="stock pick" ng-model="inputText" ng-keypress="search($event)"></input>
           <button ng-click="getLinks()">Search</button>
           <p>{{ stockInput }}</p>
@@ -34,7 +34,7 @@
               <li>QUICK RATIO: {{ quickRatio }}</li>
               <li>==============================</li>
               <li>LINK : {{ industry }}</li>
-              <li>STATS: {{ stats }}</li>
+              <!--<li>STATS: {{ stats }}</li>-->
               <li>INDUSTRY PE: {{ averagePE }}</li>
               <li>OPERATION MARGIN: {{ margin }}</li>
               <li>INDUSTRY NET MARGIN: {{ averageMargin }}</li>
@@ -45,6 +45,20 @@
 
           </p>
           <canvas id="radar" class="chart chart-radar" data="ChartData" labels="corners"></canvas>
+        </div>
+        <div class="peSecion" ng-show="quoteVisibility">
+            <h1><b>PE Ratio</b></h1> 
+            <div>
+            <p id="left">PE ratior is usually a good indicator for how fair the price is for a stock. As a rule of thumb, PE ratio under 15 is a good sign. However, this ratior should be compare with the industry or the sector a stock is in. {{symbol}} has the PE ratio of {{ peRatio}}.</p>
+            <p id="right">B+</p>
+            </div>
+        </div>
+        <div class="eySecion" ng-show="quoteVisibility">
+            <h1><b>Earning Yield</b></h1> 
+            <div>
+            <p id="right2">PE ratior is usually a good indicator for how fair the price is for a stock. As a rule of thumb, PE ratio under 15 is a good sign. However, this ratior should be compare with the industry or the sector a stock is in. {{symbol}} has the PE ratio of {{ peRatio}}.</p>
+            <p id="left2">A-</p>
+            </div>
         </div>
       </div>
     </body>

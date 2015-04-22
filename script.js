@@ -36,9 +36,9 @@ stockApp.controller('mainCtrl', function ($scope, $http) {
 
 stockApp.controller('ratioCtrl', function($scope, $http){
 
-  $scope.corners =["Price", "Year High", "Year Low", "PE Ratio", "Dividend Yield", "Test3", "Test4"];
+  $scope.corners =["PE Ratio", "Earning Yield", "Price/Book", "ROIC%", "Market Cap", "Payout Ratio", "Quick Ratio"];
   $scope.ChartData = [
-  [1, yearHigh, yearLow, peRatio, dividendYield, 0, 0]
+  [peRatio, earningYield, priceBook, roic, marketCap, payoutRatio, quickRatio]
   ];
 
   $scope.search = function(keyEvent) {
@@ -157,7 +157,7 @@ stockApp.controller('ratioCtrl', function($scope, $http){
           var presentPE = peScaling(peRatio, industryPE).toPrecision(3);
           dividendYield = 0;
           $scope.ChartData = [
-            [lastTradePrice, yearHigh, yearLow, presentPE, dividendYield, 0, 0]
+            [presentPE, earningYield, priceBook, roic, 5, payoutRatio, quickRatio]
                               ];
           }).
         error(function() {
@@ -234,7 +234,7 @@ var peScaling = function(value, average){
     var result = 0;
     var base = getPeBase(value);
     var bonus = getPeBonus(value, average);
-    alert(bonus);
+    //alert(bonus);
     result = base + bonus;
     return result;
 };

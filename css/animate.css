@@ -1,7 +1,8 @@
 .view-container {
   position: relative;
   background: white;
-    padding: 50px;
+  padding-top: 50px;
+    
 }
 
 .view-frame.ng-enter, .view-frame.ng-leave {
@@ -160,4 +161,61 @@
   width: 100%;
   height: 1px;
   border-bottom: 2px solid LightCyan;
+}
+
+.peSecion{
+    background-color:darkslategrey;
+    width: 100%;
+    height: 300px;
+    padding: 30px;
+    font-family: milton; 
+    color:white;
+}
+
+.eySecion{
+    width: 100%;
+    height: 300px;
+    padding: 30px;
+    font-family: milton; 
+    color:darkslategray;
+}
+
+.eySecion h1{
+    font-family: milton; 
+    
+}
+
+.peSecion h1{
+    font-family: milton; 
+    
+}
+
+#left{
+    float: left;
+    width: 40%;
+}
+
+#right{
+    float: right;
+    width: 40%;
+    font-size: 900%;
+}
+
+#right2{
+    float: right;
+    width: 40%;
+}
+
+#left2{
+    float: left;
+    width: 40%;
+    font-size: 900%;
+}
+
+.radarSection{
+    padding-left: 50px;
+    
+}
+body{
+ font-family: milton;   
 }
